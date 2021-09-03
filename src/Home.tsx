@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js"
+import type { User } from "@supabase/supabase-js"
 import React, { useEffect, useState } from "react"
 import { v4 } from "uuid"
 import { supabase } from "./supabase"
@@ -32,6 +32,7 @@ export function Home({ user }: { user: User }) {
       window.alert(`couldn't create project, try again`)
       console.error(result.error)
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       setProjects((projects) => [...projects, result.data])
     }
   }

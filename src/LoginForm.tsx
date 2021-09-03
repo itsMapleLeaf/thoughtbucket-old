@@ -1,4 +1,5 @@
-import React, { FormEvent } from "react"
+import type { FormEvent } from "react"
+import React from "react"
 import { supabase } from "./supabase"
 
 export function LoginForm() {
