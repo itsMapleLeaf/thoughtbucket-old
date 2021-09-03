@@ -14,7 +14,7 @@ export function supabaseTable<TableName extends keyof definitions>(
   return supabase.from<definitions[TableName]>(tableName)
 }
 
-export async function supabaseSelect<Row, Column extends keyof Row>(
+export function supabaseSelect<Row, Column extends keyof Row>(
   queryBuilder: SupabaseQueryBuilder<Row>,
   keys: Column[],
 ) {
