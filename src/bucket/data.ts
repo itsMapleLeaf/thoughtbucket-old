@@ -1,4 +1,6 @@
+import type { PostgrestSingleResponse } from "@supabase/supabase-js"
 import { v4 } from "uuid"
+import { raise } from "../common/helpers"
 import { supabaseSelect, supabaseTable } from "../supabase/client"
 
 export const bucketQueryKey = "bucket"
@@ -19,12 +21,22 @@ export async function getBucketDetails(id: string) {
   return result.data
 }
 
-export async function createBucket(data: { name: string; ownerId: string }) {
-  await supabaseTable("buckets").insert({
-    id: v4(),
-    name: data.name,
-    owner_id: data.ownerId,
-  })
+export async function createBucket(data: {
+  name: string
+  ownerId: string
+}): Promise<{ id: string }> {
+  const response: PostgrestSingleResponse<{ id: string }> = await supabaseTable(
+    "buckets",
+  )
+    .insert({
+      id: v4(),
+      name: data.name,
+      owner_id: data.ownerId,
+    })
+    .select("id")
+    .single()
+
+  return response.data ?? raise("Bucket creation failed")
 }
 
 export async function deleteBucket(id: string) {
