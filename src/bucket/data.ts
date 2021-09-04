@@ -1,6 +1,8 @@
 import { v4 } from "uuid"
 import { supabaseSelect, supabaseTable } from "../supabase/client"
 
+export const bucketQueryKey = "bucket"
+
 export async function getBuckets() {
   const result = await supabaseSelect(supabaseTable("buckets"), ["id", "name"])
   return result.data

@@ -1,9 +1,15 @@
 import React from "react"
-import { useMutation } from "react-query"
-import { deleteBucket } from "./data"
+import { useMutation, useQueryClient } from "react-query"
+import { bucketQueryKey, deleteBucket } from "./data"
 
 export function DeleteBucketButton(props: { id: string }) {
-  const deleteMutation = useMutation(deleteBucket)
+  const client = useQueryClient()
+  const deleteMutation = useMutation(deleteBucket, {
+    async onSuccess() {
+      await client.invalidateQueries(bucketQueryKey)
+    },
+  })
+
   return (
     <button
       onClick={() => deleteMutation.mutate(props.id)}

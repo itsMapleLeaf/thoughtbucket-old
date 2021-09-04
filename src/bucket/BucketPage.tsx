@@ -1,11 +1,11 @@
 import React from "react"
 import { useQuery } from "react-query"
 import { extractErrorMessage } from "../common/helpers"
-import { getBucketDetails } from "./data"
+import { bucketQueryKey, getBucketDetails } from "./data"
 
 export function BucketPage(props: { bucketId: string }) {
   const query = useQuery({
-    queryKey: ["bucket", props.bucketId],
+    queryKey: [bucketQueryKey, props.bucketId],
     queryFn: () => getBucketDetails(props.bucketId),
   })
 

@@ -1,11 +1,16 @@
 import type { User } from "@supabase/supabase-js"
 import React from "react"
-import { useMutation } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 import { extractErrorMessage } from "../common/helpers"
-import { createBucket } from "./data"
+import { bucketQueryKey, createBucket } from "./data"
 
 export function CreateBucketButton({ user }: { user: User }) {
-  const mutation = useMutation(createBucket)
+  const client = useQueryClient()
+  const mutation = useMutation(createBucket, {
+    async onSuccess() {
+      await client.invalidateQueries(bucketQueryKey)
+    },
+  })
 
   return (
     <>
