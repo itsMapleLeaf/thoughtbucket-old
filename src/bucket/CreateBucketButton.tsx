@@ -4,16 +4,8 @@ import { useMutation } from "react-query"
 import { extractErrorMessage } from "../common/helpers"
 import { createBucket } from "./data"
 
-export function CreateBucketButton({
-  user,
-  onSuccess,
-}: {
-  user: User
-  onSuccess: () => void
-}) {
-  const mutation = useMutation(createBucket, {
-    onSuccess,
-  })
+export function CreateBucketButton({ user }: { user: User }) {
+  const mutation = useMutation(createBucket)
 
   return (
     <>
