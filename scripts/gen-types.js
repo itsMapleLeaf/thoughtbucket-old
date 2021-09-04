@@ -17,13 +17,12 @@ async function main() {
       `${process.env.VITE_APP_SUPABASE_URL}/rest/v1/?apikey=${process.env.VITE_APP_SUPABASE_KEY}`,
       "--output",
       join(__dirname, "../src/generated/supabase-types.ts"),
+      "--prettier",
+      join(__dirname, "../.prettierrc"),
       "--default-non-nullable",
     ],
     { stdio: "inherit" },
   )
-
-  await execa("pnpm", ["run", "lint-fix"], { stdio: "inherit", reject: false })
-  await execa("pnpm", ["run", "format"], { stdio: "inherit" })
 }
 
 main().catch(console.error)
