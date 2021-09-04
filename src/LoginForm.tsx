@@ -1,30 +1,31 @@
-import type { FormEvent } from "react"
 import React from "react"
+import { useMutation } from "react-query"
+import { extractErrorMessage } from "./helpers"
 import { supabase } from "./supabase"
 
 export function LoginForm() {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault()
+  const mutation = useMutation((variables: { email: string }) => {
+    return supabase.auth.signIn({ email: variables.email })
+  })
 
-    const email = event.currentTarget.elements.namedItem(
-      "email",
-    ) as HTMLInputElement
+  if (mutation.isLoading) {
+    return <div>just one moment...</div>
+  }
 
-    supabase.auth
-      .signIn({ email: email.value })
-      .then(() => {
-        window.alert(`sent a magic login link to ${email.value}!`)
-      })
-      .catch((error) => {
-        console.warn(error)
-        window.alert(`oops, something went wrong, try again`)
-      })
+  if (mutation.isSuccess) {
+    return <p>sent a magic login link to {mutation.variables?.email}!</p>
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault()
+        mutation.mutate({ email: event.currentTarget.email.value })
+      }}
+    >
       <input name="email" type="email" />
       <button type="submit">sign in with email</button>
+      {mutation.error && <p>{extractErrorMessage(mutation.error)}</p>}
     </form>
   )
 }
