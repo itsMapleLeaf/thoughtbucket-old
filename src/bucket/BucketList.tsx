@@ -1,6 +1,6 @@
 import React from "react"
 import { useQuery } from "react-query"
-import { BucketSummary } from "./BucketSummary"
+import { BucketSummaryCard } from "./BucketSummaryCard"
 import { bucketQueryKey, getBuckets } from "./data"
 
 export function BucketList() {
@@ -12,10 +12,10 @@ export function BucketList() {
   return (
     <>
       {query.isLoading && <p>loading...</p>}
-      <ul>
+      <ul className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
         {query.data?.map((bucket) => (
           <li key={bucket.id}>
-            <BucketSummary bucket={bucket} />
+            <BucketSummaryCard bucket={bucket} />
           </li>
         ))}
       </ul>

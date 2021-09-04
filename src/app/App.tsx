@@ -1,22 +1,31 @@
 import React from "react"
-import { Route, Router } from "wouter"
+import { Route } from "wouter"
 import { LoginForm } from "../auth/LoginForm"
-import { useSession } from "../auth/useSession"
+import { useUser } from "../auth/useUser"
+import { BucketList } from "../bucket/BucketList"
 import { BucketPage } from "../bucket/BucketPage"
-import { Home } from "./Home"
+import { maxWidthContainerClass } from "../ui/container"
+import { AppHeader } from "./AppHeader"
 
 export function App() {
-  const user = useSession()
-  return user ? (
-    <Router>
-      <Route path="/">
-        <Home user={user} />
-      </Route>
-      <Route path="/bucket/:bucketId">
-        {(params) => <BucketPage bucketId={params.bucketId} />}
-      </Route>
-    </Router>
-  ) : (
-    <LoginForm />
+  const user = useUser()
+  return (
+    <>
+      <AppHeader user={user} />
+      <main className={`${maxWidthContainerClass} mt-6`}>
+        {user ? (
+          <>
+            <Route path="/">
+              <BucketList />
+            </Route>
+            <Route path="/bucket/:bucketId">
+              {(params) => <BucketPage bucketId={params.bucketId} />}
+            </Route>
+          </>
+        ) : (
+          <LoginForm />
+        )}
+      </main>
+    </>
   )
 }
