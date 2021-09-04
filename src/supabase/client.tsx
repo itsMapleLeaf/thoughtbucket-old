@@ -15,7 +15,7 @@ export function supabaseTable<TableName extends keyof definitions>(
 }
 
 export function supabaseSelect<Row, Column extends keyof Row>(
-  queryBuilder: SupabaseQueryBuilder<Row>,
+  queryBuilder: SupabaseQueryBuilder<Row> | PostgrestFilterBuilder<Row>,
   keys: Column[],
 ) {
   return queryBuilder.select(
