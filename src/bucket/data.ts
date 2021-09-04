@@ -1,44 +1,30 @@
-import type { PostgrestSingleResponse } from "@supabase/supabase-js"
-import { v4 } from "uuid"
-import { raise } from "../common/helpers"
-import { supabaseSelect, supabaseTable } from "../supabase/client"
+import { v4 as uuid } from "uuid"
+import { supabaseQuery } from "../supabase/query"
 
 export const bucketQueryKey = "bucket"
 
-export async function getBuckets() {
-  const result = await supabaseSelect(supabaseTable("buckets"), ["id", "name"])
-  return result.data
+export function getBuckets() {
+  return supabaseQuery("buckets").select(["id", "name"]).all()
 }
 
-export async function getBucketDetails(id: string) {
-  const result = await supabaseSelect(supabaseTable("buckets"), [
-    "id",
-    "name",
-    "created_at",
-  ])
-    .eq("id", id)
-    .single()
-  return result.data
+export function getBucketDetails(id: string) {
+  return supabaseQuery("buckets").select(["id", "name"]).eq("id", id).single()
 }
 
-export async function createBucket(data: {
+export function createBucket(data: {
   name: string
   ownerId: string
 }): Promise<{ id: string }> {
-  const response: PostgrestSingleResponse<{ id: string }> = await supabaseTable(
-    "buckets",
-  )
+  return supabaseQuery("buckets")
     .insert({
-      id: v4(),
+      id: uuid(),
       name: data.name,
       owner_id: data.ownerId,
     })
-    .select("id")
+    .select(["id"])
     .single()
-
-  return response.data ?? raise("Bucket creation failed")
 }
 
-export async function deleteBucket(id: string) {
-  await supabaseTable("buckets").delete().eq("id", id)
+export function deleteBucket(id: string) {
+  return supabaseQuery("buckets").delete().eq("id", id).resolve()
 }
