@@ -6,6 +6,17 @@ export async function getBuckets() {
   return result.data
 }
 
+export async function getBucketDetails(id: string) {
+  const result = await supabaseSelect(supabaseTable("buckets"), [
+    "id",
+    "name",
+    "created_at",
+  ])
+    .eq("id", id)
+    .single()
+  return result.data
+}
+
 export async function createBucket(data: { name: string; ownerId: string }) {
   await supabaseTable("buckets").insert({
     id: v4(),

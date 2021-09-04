@@ -29,6 +29,7 @@ specifiers:
   typescript: ^4.3.2
   uuid: 8.3.2
   vite: ^2.4.4
+  wouter: 2.7.4
 
 dependencies:
   '@supabase/postgrest-js': 0.33.3
@@ -37,6 +38,7 @@ dependencies:
   react-dom: 17.0.2_react@17.0.2
   react-query: 3.21.1_react-dom@17.0.2+react@17.0.2
   uuid: 8.3.2
+  wouter: 2.7.4_react@17.0.2
 
 devDependencies:
   '@tailwindcss/line-clamp': 0.2.1_tailwindcss@2.2.9
@@ -3026,6 +3028,14 @@ packages:
     resolution: {integrity: sha512-Hz/mrNwitNRh/HUAtM/VT/5VH+ygD6DV7mYKZAtHOrbs8U7lvPS6xf7EJKMF0uW1KJCl0H701g3ZGus+muE5vQ==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /wouter/2.7.4_react@17.0.2:
+    resolution: {integrity: sha512-shJIsHR+gcn69L2zR+0eKquOvAcjfIEdhzf8iAP502DlrAwg5lO2Q90DqIvXryNz/mk1fe2crTB40ZHXjoF1Bg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /wrappy/1.0.2:
     resolution: {integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=}

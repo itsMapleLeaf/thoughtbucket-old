@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "wouter"
 import { DeleteBucketButton } from "./DeleteBucketButton"
 
 export function BucketSummary({
@@ -8,7 +9,7 @@ export function BucketSummary({
 }) {
   return (
     <p>
-      <span>{bucket.name}</span>
+      <Link to={`/bucket/${bucket.id}`}>{bucket.name}</Link>
       <DeleteBucketButton id={bucket.id} />
     </p>
   )

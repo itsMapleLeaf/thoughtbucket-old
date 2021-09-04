@@ -8,112 +8,112 @@ export interface paths {
     get: {
       responses: {
         /** OK */
-        200: unknown
-      }
-    }
-  }
+        200: unknown;
+      };
+    };
+  };
   "/buckets": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.buckets.id"]
-          name?: parameters["rowFilter.buckets.name"]
-          created_at?: parameters["rowFilter.buckets.created_at"]
-          updated_at?: parameters["rowFilter.buckets.updated_at"]
+          id?: parameters["rowFilter.buckets.id"];
+          name?: parameters["rowFilter.buckets.name"];
+          created_at?: parameters["rowFilter.buckets.created_at"];
+          updated_at?: parameters["rowFilter.buckets.updated_at"];
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.buckets.owner_id"]
+          owner_id?: parameters["rowFilter.buckets.owner_id"];
           /** Filtering Columns */
-          select?: parameters["select"]
+          select?: parameters["select"];
           /** Ordering */
-          order?: parameters["order"]
+          order?: parameters["order"];
           /** Limiting and Pagination */
-          offset?: parameters["offset"]
+          offset?: parameters["offset"];
           /** Limiting and Pagination */
-          limit?: parameters["limit"]
-        }
+          limit?: parameters["limit"];
+        };
         header: {
           /** Limiting and Pagination */
-          "Range"?: parameters["range"]
+          Range?: parameters["range"];
           /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"]
+          "Range-Unit"?: parameters["rangeUnit"];
           /** Preference */
-          "Prefer"?: parameters["preferCount"]
-        }
-      }
+          Prefer?: parameters["preferCount"];
+        };
+      };
       responses: {
         /** OK */
         200: {
-          schema: definitions["buckets"][]
-        }
+          schema: definitions["buckets"][];
+        };
         /** Partial Content */
-        206: unknown
-      }
-    }
+        206: unknown;
+      };
+    };
     post: {
       parameters: {
         body: {
           /** buckets */
-          buckets?: definitions["buckets"]
-        }
+          buckets?: definitions["buckets"];
+        };
         query: {
           /** Filtering Columns */
-          select?: parameters["select"]
-        }
+          select?: parameters["select"];
+        };
         header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"]
-        }
-      }
+          Prefer?: parameters["preferReturn"];
+        };
+      };
       responses: {
         /** Created */
-        201: unknown
-      }
-    }
+        201: unknown;
+      };
+    };
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.buckets.id"]
-          name?: parameters["rowFilter.buckets.name"]
-          created_at?: parameters["rowFilter.buckets.created_at"]
-          updated_at?: parameters["rowFilter.buckets.updated_at"]
+          id?: parameters["rowFilter.buckets.id"];
+          name?: parameters["rowFilter.buckets.name"];
+          created_at?: parameters["rowFilter.buckets.created_at"];
+          updated_at?: parameters["rowFilter.buckets.updated_at"];
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.buckets.owner_id"]
-        }
+          owner_id?: parameters["rowFilter.buckets.owner_id"];
+        };
         header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"]
-        }
-      }
+          Prefer?: parameters["preferReturn"];
+        };
+      };
       responses: {
         /** No Content */
-        204: never
-      }
-    }
+        204: never;
+      };
+    };
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.buckets.id"]
-          name?: parameters["rowFilter.buckets.name"]
-          created_at?: parameters["rowFilter.buckets.created_at"]
-          updated_at?: parameters["rowFilter.buckets.updated_at"]
+          id?: parameters["rowFilter.buckets.id"];
+          name?: parameters["rowFilter.buckets.name"];
+          created_at?: parameters["rowFilter.buckets.created_at"];
+          updated_at?: parameters["rowFilter.buckets.updated_at"];
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.buckets.owner_id"]
-        }
+          owner_id?: parameters["rowFilter.buckets.owner_id"];
+        };
         body: {
           /** buckets */
-          buckets?: definitions["buckets"]
-        }
+          buckets?: definitions["buckets"];
+        };
         header: {
           /** Preference */
-          Prefer?: parameters["preferReturn"]
-        }
-      }
+          Prefer?: parameters["preferReturn"];
+        };
+      };
       responses: {
         /** No Content */
-        204: never
-      }
-    }
-  }
+        204: never;
+      };
+    };
+  };
 }
 
 export interface definitions {
@@ -123,44 +123,44 @@ export interface definitions {
      * Note:
      * This is a Primary Key.<pk/>
      */
-    id: string
-    name: string
-    created_at?: string
-    updated_at?: string
+    id: string;
+    name: string;
+    created_at: string;
+    updated_at: string;
     /** the user id whomst owns the project */
-    owner_id: string
-  }
+    owner_id: string;
+  };
 }
 
 export interface parameters {
   /** Preference */
-  "preferParams": "params=single-object"
+  preferParams: "params=single-object";
   /** Preference */
-  "preferReturn": "return=representation" | "return=minimal" | "return=none"
+  preferReturn: "return=representation" | "return=minimal" | "return=none";
   /** Preference */
-  "preferCount": "count=none"
+  preferCount: "count=none";
   /** Filtering Columns */
-  "select": string
+  select: string;
   /** On Conflict */
-  "on_conflict": string
+  on_conflict: string;
   /** Ordering */
-  "order": string
+  order: string;
   /** Limiting and Pagination */
-  "range": string
+  range: string;
   /** Limiting and Pagination */
-  "rangeUnit": string
+  rangeUnit: string;
   /** Limiting and Pagination */
-  "offset": string
+  offset: string;
   /** Limiting and Pagination */
-  "limit": string
+  limit: string;
   /** buckets */
-  "body.buckets": definitions["buckets"]
-  "rowFilter.buckets.id": string
-  "rowFilter.buckets.name": string
-  "rowFilter.buckets.created_at": string
-  "rowFilter.buckets.updated_at": string
+  "body.buckets": definitions["buckets"];
+  "rowFilter.buckets.id": string;
+  "rowFilter.buckets.name": string;
+  "rowFilter.buckets.created_at": string;
+  "rowFilter.buckets.updated_at": string;
   /** the user id whomst owns the project */
-  "rowFilter.buckets.owner_id": string
+  "rowFilter.buckets.owner_id": string;
 }
 
 export interface operations {}
