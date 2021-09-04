@@ -1,9 +1,9 @@
 import React from "react"
+import { LoginForm } from "../auth/LoginForm"
+import { useSession } from "../auth/useSession"
 import { Home } from "./Home"
-import { LoginForm } from "./LoginForm"
-import { useSupabaseUser } from "./useSupabaseUser"
 
 export function App() {
-  const user = useSupabaseUser()
+  const user = useSession()
   return user ? <Home user={user} /> : <LoginForm />
 }

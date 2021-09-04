@@ -12,16 +12,16 @@ export interface paths {
       }
     }
   }
-  "/projects": {
+  "/buckets": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.projects.id"]
-          name?: parameters["rowFilter.projects.name"]
-          created_at?: parameters["rowFilter.projects.created_at"]
-          updated_at?: parameters["rowFilter.projects.updated_at"]
+          id?: parameters["rowFilter.buckets.id"]
+          name?: parameters["rowFilter.buckets.name"]
+          created_at?: parameters["rowFilter.buckets.created_at"]
+          updated_at?: parameters["rowFilter.buckets.updated_at"]
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.projects.owner_id"]
+          owner_id?: parameters["rowFilter.buckets.owner_id"]
           /** Filtering Columns */
           select?: parameters["select"]
           /** Ordering */
@@ -43,7 +43,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["projects"][]
+          schema: definitions["buckets"][]
         }
         /** Partial Content */
         206: unknown
@@ -52,8 +52,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** projects */
-          projects?: definitions["projects"]
+          /** buckets */
+          buckets?: definitions["buckets"]
         }
         query: {
           /** Filtering Columns */
@@ -72,12 +72,12 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.projects.id"]
-          name?: parameters["rowFilter.projects.name"]
-          created_at?: parameters["rowFilter.projects.created_at"]
-          updated_at?: parameters["rowFilter.projects.updated_at"]
+          id?: parameters["rowFilter.buckets.id"]
+          name?: parameters["rowFilter.buckets.name"]
+          created_at?: parameters["rowFilter.buckets.created_at"]
+          updated_at?: parameters["rowFilter.buckets.updated_at"]
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.projects.owner_id"]
+          owner_id?: parameters["rowFilter.buckets.owner_id"]
         }
         header: {
           /** Preference */
@@ -92,16 +92,16 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.projects.id"]
-          name?: parameters["rowFilter.projects.name"]
-          created_at?: parameters["rowFilter.projects.created_at"]
-          updated_at?: parameters["rowFilter.projects.updated_at"]
+          id?: parameters["rowFilter.buckets.id"]
+          name?: parameters["rowFilter.buckets.name"]
+          created_at?: parameters["rowFilter.buckets.created_at"]
+          updated_at?: parameters["rowFilter.buckets.updated_at"]
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.projects.owner_id"]
+          owner_id?: parameters["rowFilter.buckets.owner_id"]
         }
         body: {
-          /** projects */
-          projects?: definitions["projects"]
+          /** buckets */
+          buckets?: definitions["buckets"]
         }
         header: {
           /** Preference */
@@ -117,7 +117,8 @@ export interface paths {
 }
 
 export interface definitions {
-  projects: {
+  /** buckets for thoughts to reside in */
+  buckets: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
@@ -152,14 +153,14 @@ export interface parameters {
   "offset": string
   /** Limiting and Pagination */
   "limit": string
-  /** projects */
-  "body.projects": definitions["projects"]
-  "rowFilter.projects.id": string
-  "rowFilter.projects.name": string
-  "rowFilter.projects.created_at": string
-  "rowFilter.projects.updated_at": string
+  /** buckets */
+  "body.buckets": definitions["buckets"]
+  "rowFilter.buckets.id": string
+  "rowFilter.buckets.name": string
+  "rowFilter.buckets.created_at": string
+  "rowFilter.buckets.updated_at": string
   /** the user id whomst owns the project */
-  "rowFilter.projects.owner_id": string
+  "rowFilter.buckets.owner_id": string
 }
 
 export interface operations {}

@@ -1,29 +1,19 @@
 import type { User } from "@supabase/supabase-js"
 import React from "react"
 import { useMutation } from "react-query"
-import { v4 } from "uuid"
-import { extractErrorMessage } from "./helpers"
-import { supabaseTable } from "./supabase"
+import { extractErrorMessage } from "../common/helpers"
+import { createBucket } from "./data"
 
-export function CreateProjectButton({
+export function CreateBucketButton({
   user,
   onSuccess,
 }: {
   user: User
   onSuccess: () => void
 }) {
-  const mutation = useMutation(
-    async (name: string) => {
-      await supabaseTable("projects").insert({
-        id: v4(),
-        name,
-        owner_id: user.id,
-      })
-    },
-    {
-      onSuccess,
-    },
-  )
+  const mutation = useMutation(createBucket, {
+    onSuccess,
+  })
 
   return (
     <>
@@ -35,7 +25,7 @@ export function CreateProjectButton({
           if (mutation.isLoading) return
 
           const name = window.prompt("Project name?")
-          if (name) mutation.mutate(name)
+          if (name) mutation.mutate({ name, ownerId: user.id })
         }}
       >
         create project

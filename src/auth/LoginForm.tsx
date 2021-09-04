@@ -1,7 +1,7 @@
 import React from "react"
 import { useMutation } from "react-query"
-import { extractErrorMessage } from "./helpers"
-import { supabase } from "./supabase"
+import { extractErrorMessage } from "../common/helpers"
+import { supabase } from "../supabase/client"
 
 export function LoginForm() {
   const mutation = useMutation((variables: { email: string }) => {

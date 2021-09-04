@@ -1,8 +1,8 @@
 import type { User } from "@supabase/supabase-js"
 import { useEffect, useState } from "react"
-import { supabase } from "./supabase"
+import { supabase } from "../supabase/client"
 
-export function useSupabaseUser() {
+export function useSession() {
   const [user, setUser] = useState<User | undefined>(
     () => supabase.auth.user() ?? undefined,
   )

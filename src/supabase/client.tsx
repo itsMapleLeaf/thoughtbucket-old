@@ -1,7 +1,7 @@
 import type PostgrestFilterBuilder from "@supabase/postgrest-js/src/lib/PostgrestFilterBuilder"
 import { createClient } from "@supabase/supabase-js"
 import type { SupabaseQueryBuilder } from "@supabase/supabase-js/dist/main/lib/SupabaseQueryBuilder"
-import type { definitions } from "./generated/supabase-types"
+import type { definitions } from "../generated/supabase-types"
 
 export const supabase = createClient(
   import.meta.env.VITE_APP_SUPABASE_URL as string,
