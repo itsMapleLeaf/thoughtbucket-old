@@ -1,6 +1,7 @@
 import React from "react"
 import { useQuery } from "react-query"
 import { extractErrorMessage } from "../common/helpers"
+import { DocumentTitle } from "../dom/DocumentTitle"
 import { bucketQueryKey, getBucketDetails } from "./data"
 
 export function BucketPage(props: { bucketId: string }) {
@@ -22,7 +23,7 @@ export function BucketPage(props: { bucketId: string }) {
   }
 
   return (
-    <div>
+    <DocumentTitle title={query.data.name}>
       <h1>{query.data.name}</h1>
       <p>
         created on{" "}
@@ -31,6 +32,6 @@ export function BucketPage(props: { bucketId: string }) {
           timeStyle: "short",
         })}
       </p>
-    </div>
+    </DocumentTitle>
   )
 }

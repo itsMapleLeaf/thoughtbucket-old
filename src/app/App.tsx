@@ -4,13 +4,14 @@ import { LoginForm } from "../auth/LoginForm"
 import { useUser } from "../auth/useUser"
 import { BucketList } from "../bucket/BucketList"
 import { BucketPage } from "../bucket/BucketPage"
+import { DocumentTitle } from "../dom/DocumentTitle"
 import { maxWidthContainerClass } from "../ui/container"
 import { AppHeader } from "./AppHeader"
 
 export function App() {
   const user = useUser()
   return (
-    <>
+    <DocumentTitle title="thoughtbucket">
       <AppHeader user={user} />
       <main className={`${maxWidthContainerClass} mt-6`}>
         {user ? (
@@ -26,6 +27,6 @@ export function App() {
           <LoginForm />
         )}
       </main>
-    </>
+    </DocumentTitle>
   )
 }
