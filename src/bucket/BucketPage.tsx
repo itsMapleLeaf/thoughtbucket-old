@@ -52,7 +52,7 @@ export function BucketPage(props: { bucketId: string }) {
           </RenameBucketButton>
           <DeleteBucketButton
             className={fadedButtonClass}
-            bucketId={query.data.id}
+            bucket={query.data}
             onSuccess={() => setLocation("/")}
           >
             <TrashIcon className={leftButtonIconClass} /> delete

@@ -34,7 +34,7 @@ export function BucketSummaryCard({
       <DeleteBucketButton
         title="delete bucket"
         className={clsx(fadedButtonClass, "absolute right-2 bottom-2")}
-        bucketId={bucket.id}
+        bucket={bucket}
       >
         <TrashIcon className={inlineIconClass} />
         <span className="sr-only">delete</span>

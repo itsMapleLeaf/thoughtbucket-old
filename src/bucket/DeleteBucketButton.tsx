@@ -1,30 +1,29 @@
 import React from "react"
-import { useMutation, useQueryClient } from "react-query"
 import type { ButtonProps } from "../dom/Button"
-import { Button } from "../dom/Button"
+import { MutationButton } from "../state/MutationButton"
 import { bucketQueryKey, deleteBucket } from "./data"
 
 export function DeleteBucketButton({
-  bucketId,
+  bucket,
   onSuccess,
   ...props
 }: ButtonProps & {
-  bucketId: string
+  bucket: { id: string }
   onSuccess?: () => void
 }) {
-  const client = useQueryClient()
-  const deleteMutation = useMutation(deleteBucket, {
-    async onSuccess() {
-      onSuccess?.()
-      await client.invalidateQueries(bucketQueryKey)
-    },
-  })
-
   return (
-    <Button
+    <MutationButton
       {...props}
-      onClick={() => deleteMutation.mutate(bucketId)}
-      disabled={deleteMutation.status === "loading"}
+      mutateFn={deleteBucket}
+      getVariables={() => {
+        if (confirm("are you sure you want to delete this bucket?")) {
+          return bucket.id
+        }
+      }}
+      onSuccess={({ client }) => {
+        client.invalidateQueries(bucketQueryKey)
+        onSuccess?.()
+      }}
     />
   )
 }
