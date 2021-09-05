@@ -2,6 +2,7 @@ import { LogoutIcon, ViewGridAddIcon } from "@heroicons/react/solid"
 import type { User } from "@supabase/supabase-js"
 import clsx from "clsx"
 import React from "react"
+import { Link } from "wouter"
 import { CreateBucketButton } from "../bucket/CreateBucketButton"
 import { Button } from "../dom/Button"
 import { supabase } from "../supabase/client"
@@ -18,7 +19,9 @@ export function AppHeader({ user }: { user: User | undefined }) {
           "flex flex-wrap items-center justify-between py-6 gap-x-8 gap-y-2",
         )}
       >
-        <h1 className="text-4xl font-light">thoughtbucket</h1>
+        <h1 className="text-4xl font-light">
+          <Link to="/">thoughtbucket</Link>
+        </h1>
 
         {user && (
           <nav className="flex flex-wrap items-baseline gap-5">
