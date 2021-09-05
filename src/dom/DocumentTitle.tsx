@@ -7,28 +7,29 @@ import React, {
   useState,
 } from "react"
 
-type TitleContext = {
-  setParentTitle: (title: string) => void
+type ContextValue = {
+  setTitle: (title: string) => void
 }
 
-const Context = createContext<TitleContext | undefined>(undefined)
+const Context = createContext<ContextValue | undefined>(undefined)
 
 export function DocumentTitle(props: { title: string; children: ReactNode }) {
-  const [childTitle, setChildTitle] = useState<string>()
+  const [nestedTitle, setNestedTitle] = useState<string>()
   const parentContext = useContext(Context)
-  const title = [childTitle, props.title].filter(Boolean).join(" | ")
+  const title = [nestedTitle, props.title].filter(Boolean).join(" | ")
 
   useEffect(() => {
     if (parentContext) {
-      parentContext.setParentTitle(title)
+      parentContext.setTitle(title)
     } else {
       document.title = title
     }
   }, [parentContext, title])
 
-  const context = useMemo(() => {
-    return { setParentTitle: setChildTitle }
-  }, [])
+  const context = useMemo<ContextValue>(
+    () => ({ setTitle: setNestedTitle }),
+    [],
+  )
 
   return <Context.Provider value={context}>{props.children}</Context.Provider>
 }
