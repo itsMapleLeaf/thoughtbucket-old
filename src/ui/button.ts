@@ -7,7 +7,7 @@ export const solidButtonClass = clsx`
   ${activePressClass}
 `
 
-export const clearButtonClass = clsx`
+export const fadedButtonClass = clsx`
   px-3 py-2 -mx-3 -my-2 opacity-60 text-shadow leading-none
   hover:opacity-100
 `

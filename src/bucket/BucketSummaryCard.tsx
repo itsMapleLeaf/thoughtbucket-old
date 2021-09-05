@@ -2,7 +2,7 @@ import { TrashIcon, ViewGridIcon } from "@heroicons/react/solid"
 import clsx from "clsx"
 import React from "react"
 import { Link } from "wouter"
-import { clearButtonClass } from "../ui/button"
+import { fadedButtonClass } from "../ui/button"
 import { activePressClass } from "../ui/effects"
 import { inlineIconClass } from "../ui/icon"
 import { DeleteBucketButton } from "./DeleteBucketButton"
@@ -33,7 +33,7 @@ export function BucketSummaryCard({
 
       <DeleteBucketButton
         title="delete bucket"
-        className={clsx(clearButtonClass, "absolute right-2 bottom-2")}
+        className={clsx(fadedButtonClass, "absolute right-2 bottom-2")}
         bucketId={bucket.id}
       >
         <TrashIcon className={inlineIconClass} />

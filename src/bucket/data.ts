@@ -31,3 +31,10 @@ export function createBucket(data: {
 export function deleteBucket(id: string) {
   return supabaseQuery("buckets").delete().eq("id", id).resolve()
 }
+
+export function renameBucket(args: { id: string; name: string }) {
+  return supabaseQuery("buckets")
+    .update({ name: args.name })
+    .eq("id", args.id)
+    .resolve()
+}

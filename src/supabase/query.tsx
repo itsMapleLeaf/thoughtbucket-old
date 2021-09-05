@@ -25,6 +25,10 @@ export function supabaseQuery<TableName extends keyof definitions>(
       delete() {
         return createSelectWrapper<Row>(query.delete())
       },
+
+      update(data: Partial<Omit<Row, TimeFields>>) {
+        return createSelectWrapper<Row>(query.update(data))
+      },
     }
   }
 
