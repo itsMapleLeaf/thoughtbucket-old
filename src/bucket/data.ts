@@ -8,7 +8,10 @@ export function getBuckets() {
 }
 
 export function getBucketDetails(id: string) {
-  return supabaseQuery("buckets").select(["id", "name"]).eq("id", id).single()
+  return supabaseQuery("buckets")
+    .select(["id", "name", "created_at"])
+    .eq("id", id)
+    .single()
 }
 
 export function createBucket(data: {
