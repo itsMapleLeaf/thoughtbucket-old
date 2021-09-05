@@ -3,6 +3,7 @@ import clsx from "clsx"
 import React from "react"
 import { Link } from "wouter"
 import { clearButtonClass } from "../ui/button"
+import { activePressClass } from "../ui/effects"
 import { inlineIconClass } from "../ui/icon"
 import { DeleteBucketButton } from "./DeleteBucketButton"
 
@@ -12,7 +13,12 @@ export function BucketSummaryCard({
   bucket: { id: string; name: string }
 }) {
   return (
-    <div className="relative flex items-center h-full gap-2 p-4 pr-10 bg-gray-700 rounded-md shadow">
+    <div
+      className={clsx(
+        activePressClass,
+        "relative flex items-center h-full gap-2 p-4 pr-10 transition bg-gray-700 rounded-md shadow hover:bg-gray-600",
+      )}
+    >
       <ViewGridIcon className="inline w-5" />
 
       <div className="flex-1">

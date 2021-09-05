@@ -1,9 +1,10 @@
 import clsx from "clsx"
+import { activePressClass } from "./effects"
 
 export const solidButtonClass = clsx`
-  px-3 py-2 rounded leading-none shadow transition font-semibold text-white bg-green-600 text-shadow
-  hover:bg-green-700
-  active:bg-green-600 active:translate-y-[2px] active:transition-none active:shadow-none
+  px-3 py-2 rounded leading-none shadow transition font-semibold text-shadow
+  text-white bg-green-600 hover:bg-green-700
+  ${activePressClass}
 `
 
 export const clearButtonClass = clsx`
