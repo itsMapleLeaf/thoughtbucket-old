@@ -4,6 +4,7 @@ import { extractErrorMessage } from "../common/helpers"
 import { Button } from "../dom/Button"
 import { supabase } from "../supabase/client"
 import { solidButtonClass } from "../ui/button"
+import { maxWidthContainerClass } from "../ui/container"
 
 export function LoginForm() {
   const mutation = useMutation((variables: { email: string }) => {
@@ -11,15 +12,19 @@ export function LoginForm() {
   })
 
   if (mutation.isLoading) {
-    return <div>just one moment...</div>
+    return <p className={maxWidthContainerClass}>just one moment...</p>
   }
 
   if (mutation.isSuccess) {
-    return <p>sent a magic login link to {mutation.variables?.email}!</p>
+    return (
+      <p className={maxWidthContainerClass}>
+        sent a magic login link to {mutation.variables?.email}!
+      </p>
+    )
   }
 
   return (
-    <div>
+    <div className={maxWidthContainerClass}>
       <h1 className="text-3xl font-light">log in</h1>
       <p className="mt-2">a magic link to log in will be sent to your email!</p>
       <form
