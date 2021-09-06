@@ -17,7 +17,7 @@ export function App() {
         {user ? (
           <>
             <Route path="/">
-              <BucketList />
+              <BucketList user={user} />
             </Route>
             <Route path="/bucket/:bucketId">
               {(params) => <BucketPage bucketId={params.bucketId} />}
