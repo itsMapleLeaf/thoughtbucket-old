@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid"
 import { supabaseQuery } from "../supabase/query"
 
 export const bucketQueryKey = "bucket"
@@ -9,7 +8,7 @@ export function getBuckets() {
 
 export function getBucketDetails(id: string) {
   return supabaseQuery("buckets")
-    .select(["id", "name", "created_at"])
+    .select(["id", "name", "createdAt"])
     .eq("id", id)
     .single()
 }
@@ -18,14 +17,7 @@ export function createBucket(data: {
   name: string
   ownerId: string
 }): Promise<{ id: string }> {
-  return supabaseQuery("buckets")
-    .insert({
-      id: uuid(),
-      name: data.name,
-      owner_id: data.ownerId,
-    })
-    .select(["id"])
-    .single()
+  return supabaseQuery("buckets").insert(data).select(["id"]).single()
 }
 
 export function deleteBucket(id: string) {

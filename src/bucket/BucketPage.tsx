@@ -39,7 +39,7 @@ export function BucketPage(props: { bucketId: string }) {
           <p className="italic lowercase opacity-60">
             created on{" "}
             <DateTime
-              date={query.data.created_at}
+              date={query.data.createdAt}
               dateStyle="long"
               timeStyle="short"
             />

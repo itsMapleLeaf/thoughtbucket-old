@@ -4,7 +4,7 @@ import { raise } from "../common/helpers"
 import type { definitions } from "../generated/supabase-types"
 import { supabase } from "./client"
 
-type TimeFields = "created_at" | "updated_at"
+type GeneratedFields = "id" | "createdAt" | "updatedAt"
 
 // wrapper around supabase query because the default one is garbo
 export function supabaseQuery<TableName extends keyof definitions>(
@@ -18,7 +18,7 @@ export function supabaseQuery<TableName extends keyof definitions>(
         )
       },
 
-      insert(data: Omit<Row, TimeFields>) {
+      insert(data: Omit<Row, GeneratedFields>) {
         return createSelectWrapper<Row>(query.insert(data))
       },
 
@@ -26,7 +26,7 @@ export function supabaseQuery<TableName extends keyof definitions>(
         return createSelectWrapper<Row>(query.delete())
       },
 
-      update(data: Partial<Omit<Row, TimeFields>>) {
+      update(data: Partial<Omit<Row, GeneratedFields>>) {
         return createSelectWrapper<Row>(query.update(data))
       },
     }

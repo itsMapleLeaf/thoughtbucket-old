@@ -18,10 +18,10 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.buckets.id"];
           name?: parameters["rowFilter.buckets.name"];
-          created_at?: parameters["rowFilter.buckets.created_at"];
-          updated_at?: parameters["rowFilter.buckets.updated_at"];
+          createdAt?: parameters["rowFilter.buckets.createdAt"];
+          updatedAt?: parameters["rowFilter.buckets.updatedAt"];
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.buckets.owner_id"];
+          ownerId?: parameters["rowFilter.buckets.ownerId"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -74,10 +74,10 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.buckets.id"];
           name?: parameters["rowFilter.buckets.name"];
-          created_at?: parameters["rowFilter.buckets.created_at"];
-          updated_at?: parameters["rowFilter.buckets.updated_at"];
+          createdAt?: parameters["rowFilter.buckets.createdAt"];
+          updatedAt?: parameters["rowFilter.buckets.updatedAt"];
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.buckets.owner_id"];
+          ownerId?: parameters["rowFilter.buckets.ownerId"];
         };
         header: {
           /** Preference */
@@ -94,14 +94,116 @@ export interface paths {
         query: {
           id?: parameters["rowFilter.buckets.id"];
           name?: parameters["rowFilter.buckets.name"];
-          created_at?: parameters["rowFilter.buckets.created_at"];
-          updated_at?: parameters["rowFilter.buckets.updated_at"];
+          createdAt?: parameters["rowFilter.buckets.createdAt"];
+          updatedAt?: parameters["rowFilter.buckets.updatedAt"];
           /** the user id whomst owns the project */
-          owner_id?: parameters["rowFilter.buckets.owner_id"];
+          ownerId?: parameters["rowFilter.buckets.ownerId"];
         };
         body: {
           /** buckets */
           buckets?: definitions["buckets"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/columns": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.columns.id"];
+          createdAt?: parameters["rowFilter.columns.createdAt"];
+          updatedAt?: parameters["rowFilter.columns.updatedAt"];
+          name?: parameters["rowFilter.columns.name"];
+          /** the bucket that this column belongs to */
+          bucketId?: parameters["rowFilter.columns.bucketId"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["columns"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** columns */
+          columns?: definitions["columns"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.columns.id"];
+          createdAt?: parameters["rowFilter.columns.createdAt"];
+          updatedAt?: parameters["rowFilter.columns.updatedAt"];
+          name?: parameters["rowFilter.columns.name"];
+          /** the bucket that this column belongs to */
+          bucketId?: parameters["rowFilter.columns.bucketId"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.columns.id"];
+          createdAt?: parameters["rowFilter.columns.createdAt"];
+          updatedAt?: parameters["rowFilter.columns.updatedAt"];
+          name?: parameters["rowFilter.columns.name"];
+          /** the bucket that this column belongs to */
+          bucketId?: parameters["rowFilter.columns.bucketId"];
+        };
+        body: {
+          /** columns */
+          columns?: definitions["columns"];
         };
         header: {
           /** Preference */
@@ -125,10 +227,27 @@ export interface definitions {
      */
     id: string;
     name: string;
-    created_at: string;
-    updated_at: string;
+    createdAt: string;
+    updatedAt: string;
     /** the user id whomst owns the project */
-    owner_id: string;
+    ownerId: string;
+  };
+  columns: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: string;
+    createdAt?: string;
+    updatedAt?: string;
+    name: string;
+    /**
+     * the bucket that this column belongs to
+     *
+     * Note:
+     * This is a Foreign Key to `buckets.id`.<fk table='buckets' column='id'/>
+     */
+    bucketId: string;
   };
 }
 
@@ -157,10 +276,18 @@ export interface parameters {
   "body.buckets": definitions["buckets"];
   "rowFilter.buckets.id": string;
   "rowFilter.buckets.name": string;
-  "rowFilter.buckets.created_at": string;
-  "rowFilter.buckets.updated_at": string;
+  "rowFilter.buckets.createdAt": string;
+  "rowFilter.buckets.updatedAt": string;
   /** the user id whomst owns the project */
-  "rowFilter.buckets.owner_id": string;
+  "rowFilter.buckets.ownerId": string;
+  /** columns */
+  "body.columns": definitions["columns"];
+  "rowFilter.columns.id": string;
+  "rowFilter.columns.createdAt": string;
+  "rowFilter.columns.updatedAt": string;
+  "rowFilter.columns.name": string;
+  /** the bucket that this column belongs to */
+  "rowFilter.columns.bucketId": string;
 }
 
 export interface operations {}
