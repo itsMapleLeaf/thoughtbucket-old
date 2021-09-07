@@ -1,16 +1,18 @@
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/solid"
 import React from "react"
-import { useMutation, useQuery, useQueryClient } from "react-query"
+import { useQuery } from "react-query"
 import { useLocation } from "wouter"
+import { ColumnHeader } from "../column/ColumnHeader"
+import { columnQueryKey } from "../column/data"
+import { NewColumnForm } from "../column/NewColumnForm"
 import { extractErrorMessage } from "../common/helpers"
-import { Button } from "../dom/Button"
-import { DateTime } from "../dom/DateTime"
 import { DocumentTitle } from "../dom/DocumentTitle"
 import { supabaseQuery } from "../supabase/query"
+import { ThoughtCard } from "../thought/ThoughtCard"
 import { fadedButtonClass } from "../ui/button"
 import { maxWidthContainerClass } from "../ui/container"
 import { leftButtonIconClass } from "../ui/icon"
-import { textInputClass } from "../ui/input"
+import { BucketPageSummary } from "./BucketPageSummary"
 import { bucketQueryKey, getBucketDetails } from "./data"
 import { DeleteBucketButton } from "./DeleteBucketButton"
 import { RenameBucketButton } from "./RenameBucketButton"
@@ -22,7 +24,7 @@ export function BucketPage({ bucketId }: { bucketId: string }) {
   })
 
   const columnListQuery = useQuery({
-    queryKey: ["columns", bucketId],
+    queryKey: [columnQueryKey, bucketId],
     queryFn: () =>
       supabaseQuery("columns")
         .select(["id", "name", "bucketId"])
@@ -31,29 +33,21 @@ export function BucketPage({ bucketId }: { bucketId: string }) {
         .all(),
   })
 
-  const client = useQueryClient()
-  const createColumnMutation = useMutation(
-    (data: { name: string; bucketId: string }) =>
-      supabaseQuery("columns").insert(data).resolve(),
-    {
-      async onSuccess() {
-        await client.invalidateQueries(["columns"])
-      },
-    },
-  )
-
-  const deleteColumnMutation = useMutation(
-    (id: string) => supabaseQuery("columns").delete().eq("id", id).resolve(),
-    {
-      async onSuccess() {
-        await client.invalidateQueries(["columns"])
-      },
-    },
-  )
-
   const [, setLocation] = useLocation()
 
   const columnScrollContainerRef = React.useRef<HTMLDivElement>(null)
+
+  const scrollRight = () => {
+    // call the scroll after react has rendered the dom
+    requestIdleCallback(() => {
+      columnScrollContainerRef.current?.scrollBy({
+        left:
+          columnScrollContainerRef.current.clientWidth +
+          columnScrollContainerRef.current.scrollWidth,
+        behavior: "smooth",
+      })
+    })
+  }
 
   if (bucketQuery.isLoading) {
     return <p>Loading...</p>
@@ -74,15 +68,7 @@ export function BucketPage({ bucketId }: { bucketId: string }) {
           className={`flex flex-wrap items-baseline gap-x-4 gap-y-2 ${maxWidthContainerClass}`}
         >
           <div className="mr-auto">
-            <h1 className="text-2xl font-light">{bucketQuery.data.name}</h1>
-            <p className="italic lowercase opacity-60">
-              created on{" "}
-              <DateTime
-                date={bucketQuery.data.createdAt}
-                dateStyle="long"
-                timeStyle="short"
-              />
-            </p>
+            <BucketPageSummary bucket={bucketQuery.data} />
           </div>
 
           <div className="flex gap-4">
@@ -103,7 +89,7 @@ export function BucketPage({ bucketId }: { bucketId: string }) {
         </section>
 
         <section
-          className="grid grid-flow-col gap-4 p-4 auto-cols-[18rem] grid-rows-1 mx-auto min-w-[min(1024px,100%)] max-w-full overflow-x-auto flex-1 overflow-y-auto min-h-0"
+          className="grid grid-flow-col gap-4 p-4 auto-cols-[18rem] grid-rows-1 mx-auto min-w-[min(1024px,100%)] max-w-full overflow-auto flex-1"
           ref={columnScrollContainerRef}
         >
           {columnListQuery.data?.map((column) => (
@@ -111,22 +97,20 @@ export function BucketPage({ bucketId }: { bucketId: string }) {
               key={column.id}
               className="flex flex-col p-3 bg-gray-900 rounded-md shadow-inner"
             >
-              <div className="flex items-start gap-2 mb-3">
-                <h3 className="flex-1 text-lg font-light leading-tight">
-                  {column.name}
-                </h3>
-                <Button
-                  className={fadedButtonClass}
-                  title="delete this column"
-                  onClick={() => {
-                    deleteColumnMutation.mutate(column.id)
-                  }}
-                >
-                  <TrashIcon className="w-5" />
-                </Button>
+              <div className="mb-3">
+                <ColumnHeader column={column} />
               </div>
 
               <div className="grid items-start content-start flex-1 min-h-0 gap-3 overflow-y-auto transform-gpu">
+                <ThoughtCard />
+                <ThoughtCard />
+                <ThoughtCard />
+                <ThoughtCard />
+                <ThoughtCard />
+                <ThoughtCard />
+                <ThoughtCard />
+                <ThoughtCard />
+                <ThoughtCard />
                 <ThoughtCard />
                 <ThoughtCard />
                 <ThoughtCard />
@@ -135,52 +119,10 @@ export function BucketPage({ bucketId }: { bucketId: string }) {
           ))}
 
           <div>
-            <form
-              onSubmit={(event) => {
-                event.preventDefault()
-
-                const nameField = event.currentTarget.elements.namedItem(
-                  "name",
-                ) as HTMLInputElement
-
-                createColumnMutation
-                  .mutateAsync({
-                    name: nameField.value,
-                    bucketId,
-                  })
-                  .then(() => {
-                    requestIdleCallback(() => {
-                      columnScrollContainerRef.current?.scrollBy({
-                        left:
-                          columnScrollContainerRef.current.clientWidth +
-                          columnScrollContainerRef.current.scrollWidth,
-                        behavior: "smooth",
-                      })
-                    })
-                  })
-
-                nameField.value = ""
-              }}
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder="add a new column..."
-                className={textInputClass}
-              />
-              <Button type="submit" hidden />
-            </form>
+            <NewColumnForm bucketId={bucketId} onSuccess={scrollRight} />
           </div>
         </section>
       </div>
     </DocumentTitle>
-  )
-}
-
-function ThoughtCard() {
-  return (
-    <div className="p-2 bg-gray-800 border-l-4 border-blue-400 rounded-sm shadow">
-      Anim voluptate minim cupidatat fugiat incididunt nulla adipisicing.
-    </div>
   )
 }
