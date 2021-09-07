@@ -21,8 +21,8 @@ export function LoginForm({
           })
         }}
       >
-        <TextInputField.Email name="email" />
-        <TextInputField.Password name="password" isNewPassword />
+        <TextInputField.Email name="email" required />
+        <TextInputField.Password name="password" required isNewPassword />
 
         <Button type="submit" className={`${solidButtonClass} block mt-2`}>
           log in
