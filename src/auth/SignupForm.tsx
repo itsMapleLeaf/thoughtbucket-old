@@ -3,14 +3,14 @@ import { Button } from "../dom/Button"
 import { solidButtonClass } from "../ui/button"
 import { TextInputField } from "../ui/TextInputField"
 
-export function LoginForm({
+export function SignupForm({
   onSubmit,
 }: {
   onSubmit: (values: { email: string; password: string }) => void
 }) {
   return (
     <div>
-      <h1 className="text-3xl font-light">log in</h1>
+      <h1 className="text-3xl font-light">sign up</h1>
       <form
         className="grid gap-3 mt-4 justify-items-start"
         onSubmit={(event) => {
@@ -23,9 +23,8 @@ export function LoginForm({
       >
         <TextInputField.Email name="email" />
         <TextInputField.Password name="password" isNewPassword />
-
         <Button type="submit" className={`${solidButtonClass} block mt-2`}>
-          log in
+          sign up
         </Button>
       </form>
     </div>

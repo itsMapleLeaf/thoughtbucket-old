@@ -1,6 +1,6 @@
 import React from "react"
 import { Route } from "wouter"
-import { LoginForm } from "../auth/LoginForm"
+import { AuthPage } from "../auth/AuthPage"
 import { useUser } from "../auth/useUser"
 import { BucketList } from "../bucket/BucketList"
 import { BucketPage } from "../bucket/BucketPage"
@@ -24,7 +24,7 @@ export function App() {
               </Route>
             </>
           ) : (
-            <LoginForm />
+            <AuthPage />
           )}
         </main>
       </div>

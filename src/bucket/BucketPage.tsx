@@ -12,10 +12,10 @@ import { bucketQueryKey, getBucketDetails } from "./data"
 import { DeleteBucketButton } from "./DeleteBucketButton"
 import { RenameBucketButton } from "./RenameBucketButton"
 
-export function BucketPage(props: { bucketId: string }) {
+export function BucketPage({ bucketId }: { bucketId: string }) {
   const query = useQuery({
-    queryKey: [bucketQueryKey, props.bucketId],
-    queryFn: () => getBucketDetails(props.bucketId),
+    queryKey: [bucketQueryKey, bucketId],
+    queryFn: () => getBucketDetails(bucketId),
   })
 
   const [, setLocation] = useLocation()
