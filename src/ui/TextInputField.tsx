@@ -29,15 +29,16 @@ TextInputField.Email = function EmailField(
   )
 }
 
-TextInputField.Password = function PasswordField(
-  props: Partial<TextInputFieldProps> & { isNewPassword: boolean },
-) {
+TextInputField.Password = function PasswordField({
+  isNewPassword,
+  ...props
+}: Partial<TextInputFieldProps> & { isNewPassword: boolean }) {
   return (
     <TextInputField
       label="password"
       type="password"
       placeholder="Password"
-      autoComplete={props.isNewPassword ? "new-password" : "current-password"}
+      autoComplete={isNewPassword ? "new-password" : "current-password"}
       {...props}
     />
   )
